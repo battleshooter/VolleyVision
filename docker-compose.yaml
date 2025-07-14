@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  stage1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: stage1  # <-- Build the 'stage1' stage
+    volumes:
+      - ./Input:/app/Input  
+      - ./Output:/app/Stage I - Volleyball/VideoOutput
+    environment:
+      - ROBOFLOW_API_KEY=${ROBOFLOW_API_KEY}
+
+  stage2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: stage2  # <-- Build the 'stage2' stage
+    volumes:
+      - ./Input:/app/Input  
+      - ./Output:/app/Stage II - Players & Actions/VideoOutput
+
+  stage3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: stage3  # <-- Build the 'stage3' stage
+    volumes:
+      - ./Input:/app/Input  
+      - ./Output:/app/Stage III - Court Detection/VideoOutput
+    environment:
+      - ROBOFLOW_API_KEY=${ROBOFLOW_API_KEY}
