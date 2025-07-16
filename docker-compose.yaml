@@ -5,10 +5,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: stage1  # <-- Build the 'stage1' stage
+      target: stage1
     volumes:
+      - ./VolleyVision/Stage_I_Volleyball:/app/Stage_I_Volleyball
       - ./Input:/app/Input  
-      - ./Output:/app/Stage I - Volleyball/VideoOutput
+      - ./Output:/app/Stage_I_Volleyball/VideoOutput
     environment:
       - ROBOFLOW_API_KEY=${ROBOFLOW_API_KEY}
 
@@ -16,18 +17,22 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: stage2  # <-- Build the 'stage2' stage
+      target: stage2
     volumes:
-      - ./Input:/app/Input  
-      - ./Output:/app/Stage II - Players & Actions/VideoOutput
+      - ./VolleyVision/Stage_II_Players_and_Actions:/app/Stage_II_Players_and_Actions
+      - ./Input:/app/Input
+      - ./Output:/app/Stage_II_Players_and_Actions/Output
+      - ./rally_cutter.py:/app/rally_cutter.py
+      - ./Rally_Clips:/app/Rally_Clips
 
   stage3:
     build:
       context: .
       dockerfile: Dockerfile
-      target: stage3  # <-- Build the 'stage3' stage
+      target: stage3
     volumes:
+      - ./VolleyVision/Stage_III_Court_Detection:/app/Stage_III_Court_Detection
       - ./Input:/app/Input  
-      - ./Output:/app/Stage III - Court Detection/VideoOutput
+      - ./Output:/app/Stage_III_Court_Detection/VideoOutput
     environment:
       - ROBOFLOW_API_KEY=${ROBOFLOW_API_KEY}
